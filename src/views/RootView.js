@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
 import '../css/App.css';
-import { Grid } from 'semantic-ui-react'
-import { Container } from 'semantic-ui-react'
+import * as Colors from 'material-ui/styles/colors';
+import { AppBar } from 'material-ui';
+import {GridList, GridTile} from 'material-ui/GridList';
+
+
+import Menu from '../components/menu'
 import ListCategories from '../components/ListCategories'
 import ListPosts from '../components/ListPosts'
+
 
 class App extends Component {
     render() {
         return (
             <div className="App">
-                <Container fluid="true">
-                    <Grid padded="horizontally">
-                        <Grid.Row>
-                            <Grid.Column width={3} textAlign="left">
-                                <ListCategories />
-                            </Grid.Column>
-                            <Grid.Column width={13} textAlign="left">
-                                <ListPosts />
-                            </Grid.Column>
-                        </Grid.Row>
-                    </Grid>
-                </Container>
+                <AppBar title="Projeto Leitura - Udacity" showMenuIconButton={false}  />
+
+                 <GridList cols={2.2}>
+
+                     <GridTile>
+                         1
+                     </GridTile>
+                     <GridList>
+
 
             </div>
         );
