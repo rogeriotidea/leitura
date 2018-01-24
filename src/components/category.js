@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 
-class Category extends Component {
-    render() {
-        return (
+const Category = () => (
             <div>Cat 1</div>
-        );
-    }
-}
+)
 
 export default Category;

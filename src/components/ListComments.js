@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 
-class ListComments extends Component {
-    render() {
-        return (
+const ListCategories = () => (
             <div>Comments</div>
-        );
-    }
-}
+)
 
-export default ListComments;
+export default ListCategories;
