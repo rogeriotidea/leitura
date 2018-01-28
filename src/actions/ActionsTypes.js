@@ -1,0 +1,2 @@
+export const LISTAR_CATEGORIAS = "LISTAR_CATEGORIAS";
+export const LISTAR_POSTS = "LISTAR_POSTS";

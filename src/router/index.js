@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import RootView from '../views/RootView';
-
+import HomeView from '../views/HomeView';
+import PostView from '../views/PostView';
 class RouterApp extends Component {
     render() {
         return (
             <Switch>
-                <Route exact path="/" component={RootView} />
+                <Route exact path="/" component={HomeView} />
+                <Route path="/:category/:postId" component={PostView} />
 
             </Switch>
         )
