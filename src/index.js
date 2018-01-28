@@ -10,7 +10,7 @@ import RouterApp from './router';
 ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider>
-        <BrowserRouter>
+        	<BrowserRouter>
                 <RouterApp />
             </BrowserRouter>
         </MuiThemeProvider>

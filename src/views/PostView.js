@@ -1,28 +1,21 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
 import { AppBar } from 'material-ui';
-import { GridList, GridTile } from 'material-ui/GridList';
-import ListarCategorias from '../components/ListarCategorias';
-import ListarPosts from '../components/ListarPosts';
-
-import {
-  ListarCategoriasAction,
-  ListarPostsAction
-} from '../actions/Actions';
-
-
-
 
 class PostView extends Component {
     
+  componentDidMount() {
+        
+  }
 
     render() {
-      
+
+        let { history } = this.props;
 
         return (
             <div className="App">
-               AAA
+                <AppBar title="Projeto Leitura" showMenuIconButton={false}  /> 
+                     POST DETAIL          
+
             </div>
         );
     }

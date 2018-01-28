@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { AppBar } from 'material-ui';
+import { AppBar, MenuItem, SelectField } from 'material-ui';
+import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 import { GridList, GridTile } from 'material-ui/GridList';
 import ListarCategorias from '../components/ListarCategorias';
 import ListarPosts from '../components/ListarPosts';
@@ -25,20 +26,33 @@ class HomeView extends Component {
 
     render() {
 
-        let { categorias, posts } = this.props;
+        let { categorias, posts, history, sortSelected, handleChangeSort } = this.props;
 
         return (
             <div className="App">
                 <AppBar title="Projeto Leitura" showMenuIconButton={false}  /> 
-                     <GridList cols={1} cellHeight={40}>
-                        <GridTile >                       
-                         <ListarCategorias
-                          categorias={categorias}></ListarCategorias>
-                        </GridTile>
-                     </GridList>
+                <Toolbar>
+                   <ToolbarGroup>
+                      <ToolbarTitle text="Categoria:" />
+                       <GridList cols={1} cellHeight={40}>
+                          <GridTile >                       
+                           <ListarCategorias history={history} 
+                            categorias={categorias}></ListarCategorias>
+                          </GridTile>
+                       </GridList>
+                   </ToolbarGroup>
+
+                     <ToolbarGroup>
+                      <ToolbarTitle text="Ordenar por:" />
+                      <SelectField value={sortSelected} onChange={(event, index, sortSelected) => handleChangeSort(sortSelected)}>
+                          <MenuItem value={'-voteScore'} primaryText="Vote Score" />
+                          <MenuItem value={'-timestamp'} primaryText="Data" />
+                      </SelectField>
+                  </ToolbarGroup>
+                  </Toolbar>      
                       <GridList cols={1}>  
                         <GridTile>  
-                          <ListarPosts posts={posts}></ListarPosts>
+                          <ListarPosts history={history} posts={posts}></ListarPosts>
                         </GridTile> 
                     </GridList>                 
 
@@ -50,7 +64,8 @@ class HomeView extends Component {
 const mapStateToProps = state => (
   {  
    categorias: state.HomeReducer.categorias,
-   posts: state.HomeReducer.posts
+   posts: state.HomeReducer.posts,
+   sortSelected: '-voteScore'
   }
 );
 
