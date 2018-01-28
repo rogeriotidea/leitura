@@ -4,7 +4,8 @@ import { LISTAR_POSTS } from '../actions/ActionsTypes.js';
 
 const INITIAL_STATE = {
     categorias: [],
-    posts: [] 
+    posts: [],
+    sortBySelected: '-voteScore'
 }  
 
 export default (state = INITIAL_STATE, action) => {

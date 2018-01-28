@@ -26,7 +26,7 @@ class HomeView extends Component {
 
     render() {
 
-        let { categorias, posts, history, sortSelected, handleChangeSort } = this.props;
+        let { categorias, posts, history, sortBySelected, handleChangeSort } = this.props;
 
         return (
             <div className="App">
@@ -44,7 +44,7 @@ class HomeView extends Component {
 
                      <ToolbarGroup>
                       <ToolbarTitle text="Ordenar por:" />
-                      <SelectField value={sortSelected} onChange={(event, index, sortSelected) => handleChangeSort(sortSelected)}>
+                      <SelectField value={sortBySelected} onChange={(event, index, sortSelected) => handleChangeSort(sortSelected)}>
                           <MenuItem value={'-voteScore'} primaryText="Vote Score" />
                           <MenuItem value={'-timestamp'} primaryText="Data" />
                       </SelectField>
@@ -65,7 +65,7 @@ const mapStateToProps = state => (
   {  
    categorias: state.HomeReducer.categorias,
    posts: state.HomeReducer.posts,
-   sortSelected: '-voteScore'
+   sortBySelected: state.HomeReducer.sortBySelected,
   }
 );
 
