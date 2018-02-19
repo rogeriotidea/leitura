@@ -1,24 +1,57 @@
 import React, { Component } from 'react';
-import { AppBar } from 'material-ui';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
+import MenuTopo from '../components/MenuTopo';
+import RaisedButton from 'material-ui/RaisedButton';
+
+import {
+        ListarCategoriasAction,
+        TrocarCategoriaAction
+} from '../actions/Actions';
 
 class PostView extends Component {
     
   componentDidMount() {
-        
+      this.props.ListarCategoriasAction();
+      this.props.TrocarCategoriaAction(this.props.match.params.category,null);
+
   }
 
     render() {
 
-        let { history } = this.props;
+        let { categorias, history, categoriaSelecionada, sortBySelected } = this.props;
 
         return (
             <div className="App">
-                <AppBar title="Projeto Leitura" showMenuIconButton={false}  /> 
-                     POST DETAIL          
+                <MenuTopo categorias={categorias}
+                          categoriaSelecionada={categoriaSelecionada}
+                          sortBySelected={sortBySelected}
+                          history={history}
+                          exibirOpcaoSort={false}
+                          handleTrocaCategoria={this.props.TrocarCategoriaAction}
+                />
+
+                POST
+
+                <br /><br /><br />
+
+                <RaisedButton label="EDITAR POST" onClick={() => history.push(`/posts/edit/1`)}  secondary={true} />
+                <br /><br />
+                <RaisedButton label="VOLTAR" onClick={() => history.push(`/`)}  primary={true} />
 
             </div>
         );
     }
 }
 
-export default PostView;
+const mapStateToProps = state => (
+    {
+        categoriaSelecionada: state.HomeReducer.categoriaSelecionada,
+        categorias: state.HomeReducer.categorias
+    }
+);
+
+export default withRouter(connect(mapStateToProps, {
+    ListarCategoriasAction,
+    TrocarCategoriaAction
+})(PostView));
