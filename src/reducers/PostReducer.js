@@ -3,7 +3,8 @@ import { EXCLUIR_POST } from '../actions/ActionsTypes.js';
 import { LISTAR_POSTS } from '../actions/ActionsTypes.js';
 import { EDITAR_POST } from '../actions/ActionsTypes.js';
 import { LIMPAR_FORM } from '../actions/ActionsTypes.js';
-import { FORM_CHANGE } from '../actions/ActionsTypes.js';
+import { VOTAR_POST } from '../actions/ActionsTypes.js';
+import { VOTAR_POST_VIEW } from '../actions/ActionsTypes.js';
 
 const INITIAL_STATE = {
     categoriaSelecionada: '',
@@ -32,8 +33,25 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 post: {}
             }
-        case FORM_CHANGE:
-            return { ...state, Post: { ...state.Post, [action.field]: action.payload } }
+        case VOTAR_POST:
+            return {
+                ...state,
+                posts: state.posts.map(post => {
+                    if(post.id === action.id) {
+                        post.voteScore = post.voteScore + action.voto
+
+                    }
+                    return post;
+                })
+            }
+        case VOTAR_POST_VIEW:
+            return {
+                ...state,
+                post: {
+                    ...state.post,
+                    voteScore: state.post.voteScore + action.voto
+                }
+            }
         default:
             return state;
     }

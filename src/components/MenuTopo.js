@@ -3,7 +3,7 @@ import { AppBar, MenuItem, SelectField } from 'material-ui';
 import { Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui/Toolbar';
 import ListarCategorias from '../components/ListarCategorias';
 import { GridList, GridTile } from 'material-ui/GridList';
-import { If, Then, Else } from 'react-if';
+import { If, Then } from 'react-if';
 
 
 const MenuTopo = ({categorias, history, categoriaSelecionada, sortBySelected, handleTrocaSort, handleTrocaCategoria, exibirOpcaoSort}) => {

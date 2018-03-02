@@ -4,18 +4,25 @@ import { connect } from 'react-redux';
 import MenuTopo from '../components/MenuTopo';
 import RaisedButton from 'material-ui/RaisedButton';
 import { TextField } from 'material-ui';
-import CategoriasSelect from '../components/CategoriasSelect';
+import { SelectField, MenuItem} from 'material-ui';
 
 import {
     ListarCategoriasAction,
     TrocarCategoriaAction,
     TrocarCategoriaPostAction,
     SalvarPostAction,
-    EditarPostAction,
-    PostHandleChangeAction
+    EditarPostAction
 } from '../actions/Actions';
 
 class PostFormView extends Component {
+
+    state = {
+        id: 0,
+        titulo: '',
+        autor: '',
+        descricao: '',
+        categoria: ''
+    }
 
     componentDidMount() {
 
@@ -27,27 +34,59 @@ class PostFormView extends Component {
         }
     }
 
-    handleSalvaPostagem = (e) => {
+
+    componentWillReceiveProps(nextProps) {
+
+        let post = nextProps.post;
+
+        if (post) {
+            this.setState({
+                id: post.id,
+                titulo: post.title,
+                autor: post.author,
+                categoria: post.category,
+                descricao: post.body
+            })
+        }
+    }
+
+    handleSalvaPost = (e) => {
 
         e.preventDefault()
 
         let post = {
-            id: this.props.match.params.id,
+            id: this.state.id,
             title: e.target.titulo.value,
-            category: this.props.categoriaSelecionada,
+            category: this.state.categoria,
             timestamp: Date.now(),
             author: e.target.autor.value,
             body: e.target.descricao.value
         }
+
 
         this.props.SalvarPostAction(post, this.props.history);
 
     }
 
 
+    handleChange = (e) => {
+
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    handleSelectChange = (event, index, value) => {
+
+        this.setState({
+            categoria: value
+        })
+    }
+
+
     render() {
         
-        let { post, categorias, history, categoriaSelecionada, sortBySelected } = this.props;
+        let { categorias, history, categoriaSelecionada, sortBySelected } = this.props;
 
         return (
             <div className="App">
@@ -60,15 +99,15 @@ class PostFormView extends Component {
                           handleTrocaCategoria={this.props.TrocarCategoriaAction}
                 />
 
-                <form className="post-form" onSubmit={this.handleSalvaPostagem}>
+                <form className="post-form" onSubmit={this.handleSalvaPost}>
 
                 <TextField
                     name="titulo"
                     floatingLabelText="Titulo"
                     floatingLabelFixed={true}
                     fullWidth={true}
-                    value={post.title}
-                    onChange={this.props.postHandleChangeAction}
+                    value={this.state.titulo}
+                    onChange={(e) => this.handleChange(e)}
 
 
                 /><br />
@@ -78,8 +117,8 @@ class PostFormView extends Component {
                     floatingLabelFixed={true}
                     multiLine={true}
                     fullWidth={true}
-                    value={post.body}
-                    onChange={this.props.postHandleChangeAction}
+                    value={this.state.descricao}
+                    onChange={(e) => this.handleChange(e)}
 
 
                 /><br />
@@ -88,19 +127,23 @@ class PostFormView extends Component {
                     floatingLabelText="Autor"
                     floatingLabelFixed={true}
                     fullWidth={true}
-                    value={post.author}
-                    onChange={this.props.postHandleChangeAction}
-
-
+                    value={this.state.autor}
+                    onChange={(e) => this.handleChange(e)}
                 />
                 <br /><br />
-                <CategoriasSelect categorias={categorias} name="categoria"
-                                  categoriaSelecionada={post.category}
-                                  handleSelecionaCategoria={this.props.TrocarCategoriaPostAction}
-                />
+
+                    <SelectField
+                        name="categoria"
+                        hintText="Informe a categoria"
+                        fullWidth={true}
+                        value={this.state.categoria}
+                        autoWidth={true}
+                        onChange={this.handleSelectChange}>
+                        {categorias.map(cat => (<MenuItem value={cat.path} key={cat.path} primaryText={cat.name} />))}
+                    </SelectField>
 
                 <RaisedButton label="GRAVAR" type="submit" secondary={true} />
-                <br /><br />
+                <br />
                 </form>
 
                 <RaisedButton label="VOLTAR" onClick={() => history.push(`/`)}  primary={true} />
@@ -112,7 +155,6 @@ class PostFormView extends Component {
 
 const mapStateToProps = state => (
     {
-        categoriaSelecionada: state.PostReducer.categoriaSelecionada,
         categorias: state.HomeReducer.categorias,
         post: state.PostReducer.post
     }
@@ -123,6 +165,5 @@ export default withRouter(connect(mapStateToProps, {
     TrocarCategoriaAction,
     TrocarCategoriaPostAction,
     SalvarPostAction,
-    EditarPostAction,
-    PostHandleChangeAction
+    EditarPostAction
 })(PostFormView));

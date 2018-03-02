@@ -7,7 +7,7 @@ const style = {
   marginLeft: 15,
 };
 
-const ListarPosts = ({posts, handlePostEditar, handlePostExcluir,  categoriaSelecionada, history}) => {
+const ListarPosts = ({posts, handlePostEditar, handlePostExcluir,  categoriaSelecionada, votar, history}) => {
 
 	 return (    
 	 	<div>
@@ -23,9 +23,9 @@ const ListarPosts = ({posts, handlePostEditar, handlePostExcluir,  categoriaSele
 										<th width="20%">Autor:  {post.author}</th>
 										<th width="20%">Comentários: {post.commentCount}</th>
 										<th width="20%">Votos:
-											<button style={{ 'padding': '5px', 'marginLeft':'5px', 'marginRight':'5px' }} onClick={() => this.handleVotar(post.id, 'downVote')}>-1</button>{
+											<button style={{ 'padding': '5px', 'marginLeft':'5px', 'marginRight':'5px' }} onClick={() => votar(post.id, 'downVote')}>-1</button>{
 												post.voteScore}
-											<button style={{ 'padding': '5px', 'marginLeft':'5px' }} onClick={() => this.handleVotar(post.id, 'upVote')}>+1</button></th>
+											<button style={{ 'padding': '5px', 'marginLeft':'5px' }} onClick={() => votar(post.id, 'upVote')}>+1</button></th>
 										<th width="20%">
 
 											<button style={{ 'padding': '5px', 'marginRight':'10px' }}><Link to={`/${post.category}/${post.id}`}>Viualizar</Link></button>

@@ -13,7 +13,8 @@ import {
     TrocarSortAction,
     ExcluirPostAction,
     EditPostAction,
-    NovoPostAction
+    NovoPostAction,
+    VotarPostAction
 } from '../actions/Actions';
 
 
@@ -24,6 +25,15 @@ class HomeView extends Component {
           this.props.ListarPostsAction();
           this.props.TrocarCategoriaAction(this.props.match.params.category,null);
 
+    }
+
+    handleExcluirPost = (id) => {
+
+        let confirm = window.confirm('Confirma ?')
+
+        if(confirm) {
+            this.props.ExcluirPostAction(id)
+        }
     }
 
     render() {
@@ -47,8 +57,9 @@ class HomeView extends Component {
                           <ListarPosts history={history}
                                        posts={posts}
                                        sortBy={sortBySelected}
+                                       votar={this.props.VotarPostAction}
                                        handlePostEditar={this.props.EditPostAction}
-                                       handlePostExcluir={this.props.ExcluirPostAction}
+                                       handlePostExcluir={this.handleExcluirPost}
                                        categoriaSelecionada={categoriaSelecionada}></ListarPosts>
 
                 <br />
@@ -76,5 +87,6 @@ export default withRouter(connect(mapStateToProps, {
     TrocarSortAction,
     ExcluirPostAction,
     EditPostAction,
-    NovoPostAction
+    NovoPostAction,
+    VotarPostAction
 })(HomeView));

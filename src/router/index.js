@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import HomeView from '../views/HomeView';
 import PostView from '../views/PostView';
 import PostFormView from '../views/PostFormView';
+import ComentarioFormView from '../views/ComentarioFormView';
+
 
 class RouterApp extends Component {
     render() {
@@ -11,6 +13,7 @@ class RouterApp extends Component {
                 <Route exact path="/" component={HomeView} />
                 <Route path="/post/edit/:postId" component={PostFormView} />
                 <Route path="/post/new" component={PostFormView} />
+                <Route path="/comentario/edit/:comentarioId" component={ComentarioFormView} />
 
                 <Route path="/:category/:postId" component={PostView} />
                 <Route path="/:category" component={HomeView} />

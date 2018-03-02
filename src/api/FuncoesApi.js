@@ -45,8 +45,72 @@ export const criarNovoPost = (data) => fetch(
     }
 ).then(res => res.json()).then(data => data)
 
+export const editarPost = (data) => fetch(
+    `${api}/posts/${data.id}`,
+    {
+        method: 'put',
+        headers: headers,
+        body: JSON.stringify(data)
+    }
+).then(res => res.json()).then(data => data)
 
-export const editarPost = () =>
-    fetch(`${api}/posts`, { headers, method: 'GET'})
-        .then(res => res.json())
+export const votePost = (id, tipovoto) => fetch(
+    `${api}/posts/${id}`,
+    {
+        method: 'post',
+        headers: headers,
+        body: JSON.stringify({option: tipovoto})
+    }
+)
 
+export const getComentarios = (id) => fetch(
+    `${api}/posts/${id}/comments`,
+    {
+        method: 'get',
+        headers: headers
+    }
+).then(res => res.json()).then(data => data)
+
+export const salvarComentario = (data) => fetch(
+    `${api}/comments`,
+    {
+        method: 'post',
+        headers: headers,
+        body: JSON.stringify(data)
+    }
+).then(res => res.json()).then(data => data)
+
+export const editarComentario = (data) => fetch(
+    `${api}/comments/${data.id}`,
+    {
+        method: 'put',
+        headers: headers,
+        body: JSON.stringify(data)
+    }
+).then(res => res.json()).then(data => data)
+
+
+export const excluirComentario = (data) => fetch(
+    `${api}/comments/${data}`,
+    {
+        method: 'delete',
+        headers: headers
+    }
+)
+
+export const voteComentario = (id, tipovoto) => fetch(
+    `${api}/comments/${id}`,
+    {
+        method: 'post',
+        headers: headers,
+        body: JSON.stringify({option: tipovoto})
+    }
+)
+
+export const retornaComentario = (data) => fetch(
+    `${api}/comments/${data}`,
+    {
+        method: 'get',
+        headers: headers,
+    }
+).then(res => res.json()).then(data => data)
