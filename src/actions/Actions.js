@@ -43,7 +43,7 @@ export const TrocarSortAction = (sortBy) => {
 
 export const TrocarCategoriaAction = (categoria, history) => {
     return dispatch => {
-        dispatch({ type: TROCAR_CATEGORIA, payload: categoria });
+        dispatch({ type: POST_TROCAR_CATEGORIA, payload: categoria });
         if (history) {
             history.push(`/${categoria}`);
         }
@@ -74,6 +74,7 @@ export const ExcluirPostAction = postID => {
 }
 
 export function EditarPost(post) {
+
     return {
         type: EDITAR_POST,
         post
@@ -81,9 +82,17 @@ export function EditarPost(post) {
 }
 
 export function EditarPostAction(id) {
+
+
     return (dispatch) => {
         Api.retornaPost(id).then(
-            (response) => dispatch(EditarPost(response))
+            (response) => {
+                if (!response.id) {
+                    alert ('Conteudo nao disponivel');
+                    window.location='/';
+                }
+                dispatch(EditarPost(response))
+            }
         )
     }
 }

@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView';
 import PostView from '../views/PostView';
 import PostFormView from '../views/PostFormView';
 import ComentarioFormView from '../views/ComentarioFormView';
+import PageNotFoundView from '../views/PageNotFoundView';
 
 
 class RouterApp extends Component {
@@ -17,6 +18,8 @@ class RouterApp extends Component {
 
                 <Route path="/:category/:postId" component={PostView} />
                 <Route path="/:category" component={HomeView} />
+                <Route path='/' component={PageNotFoundView} />
+
 
             </Switch>
         )

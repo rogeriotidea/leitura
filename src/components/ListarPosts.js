@@ -11,9 +11,7 @@ const ListarPosts = ({posts, handlePostEditar, handlePostExcluir,  categoriaSele
 
 	 return (    
 	 	<div>
-			{posts.filter(
-					x => (categoriaSelecionada ? x.category === categoriaSelecionada : x.category !== null && !x.deleted))
-					.map(post => (
+			{posts.map(post => (
 					<div key={post.id}>
 							  <h2 style={{'textAlign':'center','cursor':'pointer'}} onClick={() => history.push(`/${post.category}/${post.id}`)}>{post.title}</h2>
 								<table width="100%">

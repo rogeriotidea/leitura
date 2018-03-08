@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import MenuTopo from '../components/MenuTopo';
 import RaisedButton from 'material-ui/RaisedButton';
 import Post from '../components/Post';
+import { compose } from 'redux'
+
 
 import {
         ListarCategoriasAction,
@@ -17,12 +19,14 @@ import {
 class PostView extends Component {
     
   componentDidMount() {
+
       this.props.ListarCategoriasAction();
       this.props.TrocarCategoriaAction(this.props.match.params.category,null);
-      this.props.EditarPostAction(this.props.match.params.postId);
       this.props.ListarComentariosAction(this.props.match.params.postId);
+      this.props.EditarPostAction(this.props.match.params.postId)
 
   }
+
 
     handleExcluirPost = (id) => {
 
@@ -75,11 +79,11 @@ const mapStateToProps = state => (
     }
 );
 
-export default withRouter(connect(mapStateToProps, {
+export default compose(withRouter(connect(mapStateToProps, {
     ListarCategoriasAction,
     TrocarCategoriaAction,
     EditarPostAction,
     VotarPostAction,
     ListarComentariosAction,
     ExcluirPostAction
-})(PostView));
+})(PostView)));

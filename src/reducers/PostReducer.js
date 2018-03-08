@@ -34,17 +34,26 @@ export default (state = INITIAL_STATE, action) => {
                 post: {}
             }
         case VOTAR_POST:
+
             return {
                 ...state,
                 posts: state.posts.map(post => {
-                    if(post.id === action.id) {
-                        post.voteScore = post.voteScore + action.voto
 
+                    if(post.id === action.id) {
+
+                        const newPost = {
+                            ...post,
+                            voteScore: post.voteScore + action.voto
+                        }
+
+                        return newPost;
                     }
+
                     return post;
                 })
             }
         case VOTAR_POST_VIEW:
+
             return {
                 ...state,
                 post: {
@@ -52,6 +61,7 @@ export default (state = INITIAL_STATE, action) => {
                     voteScore: state.post.voteScore + action.voto
                 }
             }
+
         default:
             return state;
     }

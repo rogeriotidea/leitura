@@ -26,7 +26,7 @@ export const retornaPost = (data) => fetch(
     {
         headers: headers,
     }
-).then(res => res.json()).then(data => data)
+).then(res => res.json()).then(data => data).catch((err) => {  throw Error(err); })
 
 export const excluirPost = (data) => fetch(
     `${api}/posts/${data}`,
